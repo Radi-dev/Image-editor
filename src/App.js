@@ -1,11 +1,11 @@
-import logo from './logo.svg';
-import './App.css';
-
+import ImageUpload from "./Components/ImageUpload";
 function App() {
-  return (
+  return (<>
     <div className="App">
-      We.Are.Radi
+     <ImageUpload/>
      </div>
+
+</>
   );
 }
 
