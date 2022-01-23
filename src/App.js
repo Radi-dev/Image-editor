@@ -67,7 +67,7 @@ function App() {
         <ImageUpload image={image} setImage={setImage} />
       </div>
       <div
-        className=" bg-orange-400 rounded border shadow p-2 inline-flex"
+        className="hidden bg-orange-400 rounded border shadow p-2 inl ine-flex"
         onClick={handleDownloadImage}
       >
         saveFile
