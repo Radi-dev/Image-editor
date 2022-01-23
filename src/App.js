@@ -45,14 +45,7 @@ function App() {
     </div>
   );
   const handleChildren = () => {
-    const newArray = [
-      ...childrenItems,
-      item1(
-        childrenItems.length ** 3,
-        childrenItems.length ** 2,
-        childrenItems.length
-      ),
-    ];
+    const newArray = [...childrenItems, item1(0, 0, childrenItems.length)];
     setChildrenItems(newArray);
     console.log(newArray);
   };
@@ -79,7 +72,7 @@ function App() {
         Export As JPEG
       </button>
       <button
-        className=" border-gray-400 rounded-lg m-1 p-1 border-2"
+        className=" hidden border-gray-400 rounded-lg m-1 p-1 border-2"
         onClick={() => exportComponentAsPDF(componentRef)}
       >
         Export As PDF
