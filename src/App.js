@@ -9,6 +9,8 @@ import html2canvas from "html2canvas";
 import ImageUpload from "./Components/Uploads";
 import Workspace from "./Components/Workspace";
 
+import FittingText from "./Components/FittingText";
+
 function App() {
   const componentRef = useRef();
   const [image, setImage] = useState("/22.jpg");
@@ -41,13 +43,12 @@ function App() {
     }
   };
   const item1 = (top, left, ii) => (
-    <div
-      style={{ top: top, left: left }}
-      className="absol ute w-full h-full  bg-blue-400 rounded border shadow p-2 inline-flex"
-      key={ii}
-    >
-      offsetted
-    </div>
+    <FittingText>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus
+      temporibus, quam eligendi voluptatum totam sit saepe eum qui autem ipsum
+      incidunt soluta recusandae cupiditate dolore accusamus dolorem distinctio
+      excepturi nihil!
+    </FittingText>
   );
   const handleChildren = () => {
     const newArray = [...childrenItems, item1(0, 0, childrenItems.length)];

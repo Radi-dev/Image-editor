@@ -2,30 +2,16 @@ import React, { useState } from "react";
 import Draggable from "react-draggable";
 
 const EditBox = (props) => {
-  return !props.toggleResize ? (
+  return (
     <Draggable key={props.i} bounds="parent" handle="strong">
       <div key={props.i} className="absolute " style={{}}>
-        <strong className="cursor">
-          <div>Drag here</div>
+        <strong className=" text-transp arent cursor">
+          <div>o</div>
         </strong>
-        <div
-          className="absolute box-border overflow-hidden w-max h-max "
-          style={{ resize: "both" }}
-        >
-          {props.child}
-        </div>
-      </div>
-    </Draggable>
-  ) : (
-    <div
-      key={props.i}
-      className="absolute   "
-      style={{ width: "", height: "" }}
-    >
-      <div className=" overflow-hidden  " style={{ resize: "both" }}>
+
         {props.child}
       </div>
-    </div>
+    </Draggable>
   );
 };
 
