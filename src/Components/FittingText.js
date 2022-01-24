@@ -22,7 +22,7 @@ export default function FittingText(props) {
           {props.children}
         </Textfit>
         <span
-          className="  -rotate-45 absolute block -right-2 -bottom-2 text-center  t ext-white  pointer-events-none p-1 w-8 h-8 rounded-full bg-gray-300"
+          className="  -rotate-45 absolute block -right-1.5 -bottom-1.5 text-center pointer-events-none p w-6 h-6 rounded-full bg-gray-300"
           aria-hidden="true"
         >
           ↓
