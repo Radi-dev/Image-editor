@@ -5,15 +5,20 @@ import {
   exportComponentAsPNG,
 } from "react-component-export-image";
 import html2canvas from "html2canvas";
-import JSZip from "jszip";
-import { saveAs } from "file-saver";
+
 import ImageUpload from "./Components/Uploads";
 import Workspace from "./Components/Workspace";
+
 function App() {
   const componentRef = useRef();
   const [image, setImage] = useState("/22.jpg");
   const [childrenItems, setChildrenItems] = useState([]);
   //console.log(childrenItems);
+  const [toggleResize, setToggleResize] = useState(false);
+  console.log(toggleResize);
+  const handleResizeToggle = () => {
+    setToggleResize(!toggleResize);
+  };
 
   const handleDownloadImage = async () => {
     const element = componentRef.current;
@@ -38,7 +43,7 @@ function App() {
   const item1 = (top, left, ii) => (
     <div
       style={{ top: top, left: left }}
-      className=" absolute bg-blue-400 rounded border shadow p-2 inline-flex"
+      className="absol ute w-full h-full  bg-blue-400 rounded border shadow p-2 inline-flex"
       key={ii}
     >
       offsetted
@@ -52,19 +57,22 @@ function App() {
 
   return (
     <>
-      {console.log(childrenItems)}
       <div className="App">
-        <Workspace image={image} ref={componentRef}>
+        <Workspace image={image} ref={componentRef} toggleResize={toggleResize}>
           {childrenItems}
         </Workspace>
         <ImageUpload image={image} setImage={setImage} />
       </div>
+
       <div
         className="hidden bg-orange-400 rounded border shadow p-2 inl ine-flex"
         onClick={handleDownloadImage}
       >
         saveFile
       </div>
+      <button className="border bg-green-200 p-1" onClick={handleResizeToggle}>
+        click
+      </button>
       <button
         className=" border-gray-400 rounded-lg m-1 p-1 border-2"
         onClick={() => exportComponentAsJPEG(componentRef)}
