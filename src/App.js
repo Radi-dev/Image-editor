@@ -42,7 +42,7 @@ function App() {
       window.open(data);
     }
   };
-  const item1 = (top, left, ii) => (
+  const item1 = (
     <FittingText>
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus
       temporibus, quam eligendi voluptatum totam sit saepe eum qui autem ipsum
@@ -50,8 +50,9 @@ function App() {
       excepturi nihil!
     </FittingText>
   );
+
   const handleChildren = () => {
-    const newArray = [...childrenItems, item1(0, 0, childrenItems.length)];
+    const newArray = [...childrenItems, item1];
     setChildrenItems(newArray);
     console.log(newArray);
   };
@@ -97,7 +98,7 @@ function App() {
         className=" bg-orange-400 rounded border shadow p-2 inline-flex"
         onClick={handleChildren}
       >
-        div offset
+        add element
       </div>
     </>
   );
