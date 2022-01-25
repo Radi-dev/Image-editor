@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   exportComponentAsJPEG,
   exportComponentAsPDF,
@@ -9,18 +9,15 @@ import html2canvas from "html2canvas";
 import ImageUpload from "./Components/Uploads";
 import Workspace from "./Components/Workspace";
 
-import FittingText from "./Components/FittingText";
-
+import { styles } from "./Components/styles";
 function App() {
   const componentRef = useRef();
   const [image, setImage] = useState("/22.jpg");
   const [childrenItems, setChildrenItems] = useState([]);
   //console.log(childrenItems);
   const [toggleResize, setToggleResize] = useState(false);
+  const [genStyles, setGenStyles] = useState({});
   console.log(toggleResize);
-  const handleResizeToggle = () => {
-    setToggleResize(!toggleResize);
-  };
 
   const handleDownloadImage = async () => {
     const element = componentRef.current;
@@ -43,12 +40,12 @@ function App() {
     }
   };
   const item1 = (
-    <FittingText>
+    <p>
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus
       temporibus, quam eligendi voluptatum totam sit saepe eum qui autem ipsum
       incidunt soluta recusandae cupiditate dolore accusamus dolorem distinctio
       excepturi nihil!
-    </FittingText>
+    </p>
   );
 
   const handleChildren = () => {
@@ -56,11 +53,25 @@ function App() {
     setChildrenItems(newArray);
     console.log(newArray);
   };
+  const handleSaveAs = (callback) => {
+    setGenStyles(styles);
+    setTimeout(() => {
+      callback(componentRef);
+    }, 1000);
+    setTimeout(() => {
+      setGenStyles({});
+    }, 5000);
+  };
 
   return (
     <>
       <div className="App">
-        <Workspace image={image} ref={componentRef} toggleResize={toggleResize}>
+        <Workspace
+          image={image}
+          ref={componentRef}
+          toggleResize={toggleResize}
+          style={genStyles}
+        >
           {childrenItems}
         </Workspace>
         <ImageUpload image={image} setImage={setImage} />
@@ -72,24 +83,29 @@ function App() {
       >
         saveFile
       </div>
-      <button className="border bg-green-200 p-1" onClick={handleResizeToggle}>
+      <button
+        className="border bg-green-200 p-1"
+        onClick={() => {
+          setGenStyles(styles);
+        }}
+      >
         click
       </button>
       <button
         className=" border-gray-400 rounded-lg m-1 p-1 border-2"
-        onClick={() => exportComponentAsJPEG(componentRef)}
+        onClick={() => handleSaveAs(exportComponentAsJPEG)}
       >
         Export As JPEG
       </button>
       <button
         className=" hidden border-gray-400 rounded-lg m-1 p-1 border-2"
-        onClick={() => exportComponentAsPDF(componentRef)}
+        onClick={() => handleSaveAs(exportComponentAsPDF)}
       >
         Export As PDF
       </button>
       <button
         className=" border-gray-400 rounded-lg m-1 p-1 border-2"
-        onClick={() => exportComponentAsPNG(componentRef)}
+        onClick={() => handleSaveAs(exportComponentAsPNG)}
       >
         Export As PNG
       </button>
