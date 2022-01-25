@@ -16,7 +16,7 @@ export default function FittingText(props) {
     <>
       <div
         ref={sizes.ref}
-        className="relative text-center resize bg-orange-300 rounded border border-dashed p-2 overflow-hidden "
+        className="relative text-center resize bg-blue-300 bg-opacity-20 rounded border-2 border-gray-800 border-dashed p-2 overflow-hidden "
         style={props.style.printModeBorder}
       >
         <Textfit mode="multi" style={{ height: "100%" }}>

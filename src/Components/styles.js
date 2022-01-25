@@ -9,5 +9,6 @@ export const styles = {
   printModeBorder: {
     resize: "none",
     border: "rgba(0,0,0,0)",
+    backgroundColor: "rgba(0,0,0,0)",
   },
 };

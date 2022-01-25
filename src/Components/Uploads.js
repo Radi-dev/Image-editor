@@ -1,9 +1,10 @@
 import { useState } from "react";
 import * as XLSX from "xlsx";
+import { dummyArray } from "./dummyData";
 
-export default function FileUpload({ image, setImage }) {
+export default function FileUpload({ image, setImage, setChildren, ...props }) {
   const [row, setRow] = useState(0);
-  const [arrayData, setArrayData] = useState();
+  const [arrayData, setArrayData] = useState(dummyArray);
 
   const imageHandler = (e) => {
     const reader = new FileReader();
@@ -37,18 +38,19 @@ export default function FileUpload({ image, setImage }) {
   const previous = (second) => {
     let newRow = row === 0 ? arrayData.length - 1 : row - 1;
     setRow(newRow);
+    //setChildren(newRow);
   };
   const next = (second) => {
     let newRow = row === arrayData.length - 1 ? 0 : row + 1;
     setRow(newRow);
+    //setChildren(newRow);
   };
   const resetRow = (second) => {
     setRow(0);
   };
-
+  setChildren(arrayData[row]);
   return (
     <section className="App">
-      We.Are.Radi
       <div>
         <input
           type="file"
@@ -66,7 +68,7 @@ export default function FileUpload({ image, setImage }) {
       />
       {arrayData ? (
         <>
-          <div class="flex items-center w-10 m-2">
+          <div className="flex items-center w-10 m-2">
             <button
               onClick={previous}
               type="button"
@@ -86,7 +88,7 @@ export default function FileUpload({ image, setImage }) {
             <button
               onClick={resetRow}
               type="button"
-              class="w-full border text-base font-medium text-black bg-white hover:bg-gray-100 px-4 py-2"
+              className="w-full border text-base font-medium text-black bg-white hover:bg-gray-100 px-4 py-2"
             >
               0
             </button>
@@ -108,11 +110,21 @@ export default function FileUpload({ image, setImage }) {
               </svg>
             </button>
           </div>
-          {arrayData[row].map((data, i) => (
-            <div key={i}>
-              {i + 1}. {data}
-            </div>
-          ))}
+          <p>
+            Line {row + 1} of {arrayData.length}
+          </p>
+          <div className="flex w-screen overflow-x-scroll">
+            {console.log("array data row is: " + arrayData[row])}
+            {arrayData[row].map((data, i) => (
+              <div
+                className="border-gray-400 h-36 rounded-lg m-1 p-1 border-2"
+                key={i}
+                onClick={() => setChildren(arrayData[row])}
+              >
+                {i + 1}. {data}
+              </div>
+            ))}
+          </div>
         </>
       ) : (
         ""

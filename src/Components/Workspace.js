@@ -4,7 +4,7 @@ import FittingText from "./FittingText";
 
 const EditBox = (props) => {
   return (
-    <Draggable key={props.i} bounds="parent" handle="strong">
+    <Draggable key={props.i} handle="strong">
       <div
         key={props.i}
         className="absolute cursor-default w-min max -w-xs overflow-hidden"

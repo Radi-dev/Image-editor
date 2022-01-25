@@ -38,19 +38,12 @@ function App() {
       window.open(data);
     }
   };
-  const item1 = (
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus
-      temporibus, quam eligendi voluptatum totam sit saepe eum qui autem ipsum
-      incidunt soluta recusandae cupiditate dolore accusamus dolorem distinctio
-      excepturi nihil!
-    </p>
-  );
 
-  const handleChildren = () => {
-    const newArray = [...childrenItems, item1];
+  const handleChildren = (newItem) => {
+    //const newArray = [...childrenItems, newItem];
+    const newArray = newItem;
     setChildrenItems(newArray);
-    console.log(newArray);
+    console.log("array is: " + newArray);
   };
   const handleSaveAs = (callback) => {
     setGenStyles(styles);
@@ -73,7 +66,11 @@ function App() {
         >
           {childrenItems}
         </Workspace>
-        <FileUpload image={image} setImage={setImage} />
+        <FileUpload
+          image={image}
+          setImage={setImage}
+          setChildren={handleChildren}
+        />
       </div>
 
       <div
