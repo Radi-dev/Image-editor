@@ -2,7 +2,6 @@ import { Textfit } from "react-textfit";
 import { useResizeDetector } from "react-resize-detector";
 
 export default function FittingText(props) {
-  console.log("childF is: " + props.style);
   /*  
   const onResize = useCallback(() => {
     // on resize logic

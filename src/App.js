@@ -6,7 +6,7 @@ import {
 } from "react-component-export-image";
 import html2canvas from "html2canvas";
 
-import ImageUpload from "./Components/Uploads";
+import FileUpload from "./Components/Uploads";
 import Workspace from "./Components/Workspace";
 
 import { styles } from "./Components/styles";
@@ -14,10 +14,9 @@ function App() {
   const componentRef = useRef();
   const [image, setImage] = useState("/22.jpg");
   const [childrenItems, setChildrenItems] = useState([]);
-  //console.log(childrenItems);
+
   const [toggleResize, setToggleResize] = useState(false);
   const [genStyles, setGenStyles] = useState({});
-  console.log(toggleResize);
 
   const handleDownloadImage = async () => {
     const element = componentRef.current;
@@ -57,10 +56,10 @@ function App() {
     setGenStyles(styles);
     setTimeout(() => {
       callback(componentRef);
-    }, 1000);
+    }, 500);
     setTimeout(() => {
       setGenStyles({});
-    }, 5000);
+    }, 500);
   };
 
   return (
@@ -74,7 +73,7 @@ function App() {
         >
           {childrenItems}
         </Workspace>
-        <ImageUpload image={image} setImage={setImage} />
+        <FileUpload image={image} setImage={setImage} />
       </div>
 
       <div

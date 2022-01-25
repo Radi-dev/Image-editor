@@ -1,7 +1,7 @@
 import { useState } from "react";
 import * as XLSX from "xlsx";
 
-export default function ImageUpload({ image, setImage }) {
+export default function FileUpload({ image, setImage }) {
   const [row, setRow] = useState(0);
   const [arrayData, setArrayData] = useState();
 
