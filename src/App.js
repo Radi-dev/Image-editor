@@ -15,6 +15,7 @@ function App() {
   const componentRef = useRef();
   const [image, setImage] = useState("/22.jpg");
   const [childrenItems, setChildrenItems] = useDebounce([]);
+  const [newStyles, setNewStyles] = useDebounce({});
 
   const [toggleResize, setToggleResize] = useState(false);
   const [genStyles, setGenStyles] = useState({});
@@ -46,17 +47,25 @@ function App() {
       var newObj = { id: null, active: false, data: "", style: {} };
       newObj.id = i + 1;
       newObj.data = newItem[i];
+      newObj.style = newStyles[i + 1];
       newArray = [...newArray, newObj];
     }
-    setChildrenItems(newArray);
-    console.log("array is: ");
+    console.log("arrayrr is: ");
     console.log(newArray);
+    setChildrenItems(newArray);
   };
 
   const modChildStyles = (id, style = {}) => {
-    var newObj = [...childrenItems];
-    newObj[id - 1].style = style;
-    setChildrenItems(newObj);
+    var newObj = { ...newStyles };
+    var childrenItms = [...childrenItems];
+    newObj[id] = style;
+    console.log("style is");
+    console.log(newObj);
+    childrenItms[id - 1].style = newObj[id];
+    setChildrenItems(childrenItms);
+    setNewStyles(newObj);
+
+    //setChildrenItems(newObj);
   };
 
   const handleSaveAs = (callback) => {
