@@ -38,17 +38,18 @@ export default function FileUpload({ image, setImage, setChildren, ...props }) {
   const previous = (second) => {
     let newRow = row === 0 ? arrayData.length - 1 : row - 1;
     setRow(newRow);
-    //setChildren(newRow);
+    setChildren(arrayData[row]);
   };
   const next = (second) => {
     let newRow = row === arrayData.length - 1 ? 0 : row + 1;
     setRow(newRow);
-    //setChildren(newRow);
+    setChildren(arrayData[row]);
   };
   const resetRow = (second) => {
     setRow(0);
+    setChildren(arrayData[row]);
   };
-  setChildren(arrayData[row]);
+  //setChildren(arrayData[row]);
   return (
     <section className="App">
       <div>
