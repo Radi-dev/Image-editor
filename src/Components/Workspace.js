@@ -13,7 +13,7 @@ const EditBox = (props) => {
           style={props.style.printModeAll}
           className=" bg-ye llow-300 z-10 absolute inset-x-0 text-center text-gray-500 text-transp arent "
         >
-          {"< o >"}
+          {`< ${props.child.id} >`}
         </strong>
 
         <FittingText style={props.style} child={props.child} />

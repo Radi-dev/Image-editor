@@ -40,11 +40,24 @@ function App() {
   };
 
   const handleChildren = (newItem) => {
-    //const newArray = [...childrenItems, newItem];
-    const newArray = newItem;
+    var newArray = [];
+    for (var i = 0; i < newItem.length; ++i) {
+      var newObj = { id: null, active: false, data: "", style: {} };
+      newObj.id = i + 1;
+      newObj.data = newItem[i];
+      newArray = [...newArray, newObj];
+    }
     setChildrenItems(newArray);
-    console.log("array is: " + newArray);
+    console.log("array is: ");
+    console.log(newArray);
   };
+
+  const modChildStyles = (id, style = {}) => {
+    var newObj = [...childrenItems];
+    newObj[id - 1].style = style;
+    setChildrenItems(newObj);
+  };
+
   const handleSaveAs = (callback) => {
     setGenStyles(styles);
     setTimeout(() => {
@@ -63,6 +76,7 @@ function App() {
           ref={componentRef}
           toggleResize={toggleResize}
           style={genStyles}
+          modChildStyles={modChildStyles}
         >
           {childrenItems}
         </Workspace>
@@ -72,6 +86,12 @@ function App() {
           setChildren={handleChildren}
         />
       </div>
+      <input
+        type={"color"}
+        onChange={(e) => {
+          modChildStyles(3, { color: e.target.value });
+        }}
+      ></input>
 
       <div
         className="hidden bg-orange-400 rounded border shadow p-2 inl ine-flex"

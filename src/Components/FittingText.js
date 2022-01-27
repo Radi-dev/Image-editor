@@ -23,9 +23,8 @@ export default function FittingText(props) {
         style={props.style.printModeBorder}
         onClick={() => setModalOpen(true)}
       >
-        <Modal isOpen={modalOpen} />
-        <Textfit mode="multi" style={{ height: "100%" }}>
-          {props.child}
+        <Textfit mode="multi" style={{ height: "100%", ...props.child.style }}>
+          {props.child.data}
         </Textfit>
         <span
           className="  -rotate-45 absolute block -right-1.5 -bottom-1.5 text-center pointer-events-none p w-6 h-6 rounded-full bg-gray-300"
