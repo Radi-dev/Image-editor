@@ -11,14 +11,17 @@ const customStyles = {
     },
 };
 
-const OurModalComponent = ({ isOpen }) => {
+Modal.setAppElement('#root');
+
+const OurModalComponent = ({ isOpen, onSetNewStyles, closeModal }) => {
 return (
     <div>
-      <Modal
-        isOpen={isOpen}
-        style={customStyles}
-      >
-        <div>I am a modal</div>
+      <Modal isOpen={isOpen} style={customStyles} onRequestClose={closeModal}>
+        <input
+          type="color"
+          onChange={(e) => { onSetNewStyles({ color: e.target.value }) } }>
+        </input>
+        <button onClick={() => closeModal()}>close</button>
       </Modal>
     </div>
   );

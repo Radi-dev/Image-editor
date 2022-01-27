@@ -4,16 +4,19 @@ import { useResizeDetector } from "react-resize-detector";
 import Modal from './Modal'
 
 export default function FittingText(props) {
+  const defaultStyle = props.child.style
   const [modalOpen, setModalOpen] = useState(false);
-  /*  
-  const onResize = useCallback(() => {
-    // on resize logic
-  }, []);*/
+  const [styles, setStyles] = useState(defaultStyle);
 
+  const handleChangeStyle = (newStyles) => {
+    setStyles({...styles, ...newStyles});
+  }
+ const closeModal = () => {
+   setModalOpen(false)
+ }
   const sizes = useResizeDetector({
     refreshMode: "debounce",
     refreshRate: 20,
-    //onResize,
   });
   return (
     <>
@@ -23,8 +26,13 @@ export default function FittingText(props) {
         style={props.style.printModeBorder}
         onClick={() => setModalOpen(true)}
       >
-        <Textfit mode="multi" style={{ height: "100%", ...props.child.style }}>
+        <Textfit mode="multi" style={{ height: "100%", styles }}>
           {props.child.data}
+          <Modal
+            isOpen={modalOpen}
+            onSetNewStyles={handleChangeStyle}
+            closeModal={closeModal}
+          />
         </Textfit>
         <span
           className="  -rotate-45 absolute block -right-1.5 -bottom-1.5 text-center pointer-events-none p w-6 h-6 rounded-full bg-gray-300"

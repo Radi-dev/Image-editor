@@ -11,7 +11,7 @@ const EditBox = (props) => {
       >
         <strong
           style={props.style.printModeAll}
-          className=" bg-ye llow-300 z-10 absolute inset-x-0 text-center text-gray-500 text-transp arent "
+          className=" bg-yellow-300 z-10 absolute inset-x-0 text-center text-gray-500 text-transp arent "
         >
           {`< ${props.child.id} >`}
         </strong>
