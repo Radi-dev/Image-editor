@@ -5,6 +5,7 @@ import {
   exportComponentAsPNG,
 } from "react-component-export-image";
 import html2canvas from "html2canvas";
+import { useDebounce, useDebounceCallback } from "@react-hook/debounce";
 
 import FileUpload from "./Components/Uploads";
 import Workspace from "./Components/Workspace";
@@ -13,7 +14,7 @@ import { styles } from "./Components/styles";
 function App() {
   const componentRef = useRef();
   const [image, setImage] = useState("/22.jpg");
-  const [childrenItems, setChildrenItems] = useState([]);
+  const [childrenItems, setChildrenItems] = useDebounce([]);
 
   const [toggleResize, setToggleResize] = useState(false);
   const [genStyles, setGenStyles] = useState({});
