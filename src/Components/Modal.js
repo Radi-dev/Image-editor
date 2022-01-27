@@ -13,15 +13,16 @@ const customStyles = {
 
 Modal.setAppElement('#root');
 
-const OurModalComponent = ({ isOpen, onSetNewStyles, closeModal }) => {
+const OurModalComponent = ({ modalOpen, onSetNewStyles, toggleModal }) => {
+
 return (
     <div>
-      <Modal isOpen={isOpen} style={customStyles} onRequestClose={closeModal}>
+      <Modal isOpen={modalOpen} style={customStyles} shouldCloseOnOverlayClick = {false}>
         <input
           type="color"
           onChange={(e) => { onSetNewStyles({ color: e.target.value }) } }>
         </input>
-        <button onClick={() => closeModal()}>close</button>
+        <button onClick={() => toggleModal()}>close</button>
       </Modal>
     </div>
   );
