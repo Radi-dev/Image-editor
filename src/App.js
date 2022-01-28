@@ -5,12 +5,10 @@ import {
   exportComponentAsPNG,
 } from "react-component-export-image";
 import html2canvas from "html2canvas";
-import { useDebounce, useDebounceCallback } from "@react-hook/debounce";
+import { useDebounce } from "@react-hook/debounce";
 
 import FileUpload from "./Components/Uploads";
 import Workspace from "./Components/Workspace";
-import Modal from "./Components/Modal";
-
 import { styles } from "./Components/styles";
 function App() {
   const componentRef = useRef();
@@ -57,14 +55,14 @@ function App() {
   };
 
   const modChildStyles = (id, style = {}) => {
-    var newObj = { ...newStyles };
+    var newStylesObj = { ...newStyles };
     var childrenItms = [...childrenItems];
-    newObj[id] = style;
+    newStylesObj[id] = { ...newStylesObj[id], ...style };
     console.log("style is");
-    console.log(newObj);
-    childrenItms[id - 1].style = newObj[id];
+    console.log(newStylesObj);
+    childrenItms[id - 1].style = newStylesObj[id];
     setChildrenItems(childrenItms);
-    setNewStyles(newObj);
+    setNewStyles(newStylesObj);
 
     //setChildrenItems(newObj);
   };
