@@ -75,7 +75,7 @@ export default function FileUpload({ image, setImage, setChildren, ...props }) {
             <button
               onClick={previous}
               type="button"
-              className="w-screens p-4 border text-base rounded-l-xl text-gray-600 bg-white hover:bg-gray-100"
+              className="w-screen p-4 border text-base rounded-l-xl text-gray-600 bg-white hover:bg-gray-100"
             >
               <svg
                 width="9"

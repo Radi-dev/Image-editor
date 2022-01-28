@@ -27,9 +27,10 @@ const EditBox = (props) => {
   );
 };
 
-const Workspace = React.forwardRef(({ image, ...props }, ref) => {
+const Workspace = React.forwardRef(({ image, fullImage, ...props }, ref) => {
   const [open, setOpen] = useState(null);
   const itemClick = (item) => setOpen(item);
+
   return (
     <>
       <Modal
@@ -38,7 +39,7 @@ const Workspace = React.forwardRef(({ image, ...props }, ref) => {
         setOpen={setOpen}
         modChildStyles={props.modChildStyles}
       />
-      <section ref={ref} className="relativ e w-screen h-max  box-border ">
+      <section ref={ref} className="w-screen h-max  box-border ">
         {props.children.map((child, i) => (
           <EditBox
             i={i}
@@ -47,7 +48,12 @@ const Workspace = React.forwardRef(({ image, ...props }, ref) => {
             modalHandler={itemClick}
           />
         ))}
-        <img src={image} alt="" className=""></img>
+
+        <img
+          style={fullImage ? { maxWidth: "max-content" } : { maxWidth: "100%" }}
+          src={image}
+          alt=""
+        ></img>
       </section>
     </>
   );

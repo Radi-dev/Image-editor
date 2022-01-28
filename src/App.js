@@ -10,6 +10,7 @@ import { useDebounce } from "@react-hook/debounce";
 import FileUpload from "./Components/Uploads";
 import Workspace from "./Components/Workspace";
 import { styles } from "./Components/styles";
+import Checkbox from "./checkbox";
 function App() {
   const componentRef = useRef();
   const [image, setImage] = useState("/22.jpg");
@@ -18,6 +19,11 @@ function App() {
 
   const [toggleResize, setToggleResize] = useState(false);
   const [genStyles, setGenStyles] = useState({});
+  const [fullImage, setFullImage] = useState(false);
+
+  const handlefullImage = () => {
+    setFullImage(!fullImage);
+  };
 
   const handleDownloadImage = async () => {
     const element = componentRef.current;
@@ -80,10 +86,11 @@ function App() {
   const handleBatch = (second) => {};
 
   return (
-    <div className="relative w-screen box-border">
-      <div className=" shadow-xl">
+    <div className=" w-screen box-border">
+      <div className=" shadow-xl mb-2">
         <Workspace
           image={image}
+          fullImage={fullImage}
           ref={componentRef}
           toggleResize={toggleResize}
           style={genStyles}
@@ -92,17 +99,17 @@ function App() {
           {childrenItems}
         </Workspace>
       </div>
+      <Checkbox
+        fullImage={fullImage}
+        handleChange={handlefullImage}
+        checkText="Fit to screen"
+        uncheckText="Use full Image"
+      />
       <FileUpload
         image={image}
         setImage={setImage}
         setChildren={handleChildren}
       />
-      <input
-        type={"color"}
-        onChange={(e) => {
-          modChildStyles(10, { color: e.target.value });
-        }}
-      ></input>
 
       <div
         className="hidden bg-orange-400 rounded border shadow p-2 inl ine-flex"
