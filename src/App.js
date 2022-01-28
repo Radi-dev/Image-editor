@@ -80,8 +80,8 @@ function App() {
   const handleBatch = (second) => {};
 
   return (
-    <div className="relative h-screen">
-      <div className=" w-screen h-2/3 overflow-scroll m-2 shadow-xl">
+    <div className="relative w-screen box-border">
+      <div className=" shadow-xl">
         <Workspace
           image={image}
           ref={componentRef}

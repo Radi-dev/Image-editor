@@ -85,7 +85,7 @@ const Moda = ({ id, modChildStyles }) => {
   return (
     <div
       id="modal"
-      class="bg-white top- 32 absolute right-8 rounded shadow p-8 m-4 min-h-max text-center"
+      class="bg-white top- 32 absolute right-8  rounded shadow p-8 m-4 min-h-max text-center"
       style={{ height: "420px" }}
     >
       <strong className="text-gray-600 absolute top-0 text-right pr-4 inset-x-0 ">

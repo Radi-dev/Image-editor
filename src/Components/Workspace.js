@@ -38,7 +38,7 @@ const Workspace = React.forwardRef(({ image, ...props }, ref) => {
         setOpen={setOpen}
         modChildStyles={props.modChildStyles}
       />
-      <section ref={ref} className="relativ e w-max h-max ">
+      <section ref={ref} className="relativ e w-screen h-max  box-border ">
         {props.children.map((child, i) => (
           <EditBox
             i={i}
