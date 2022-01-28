@@ -11,6 +11,7 @@ import FileUpload from "./Components/Uploads";
 import Workspace from "./Components/Workspace";
 import { styles } from "./Components/styles";
 import Checkbox from "./checkbox";
+import TextStyleToggles from "./Components/textStyleToggles";
 function App() {
   const componentRef = useRef();
   const [image, setImage] = useState("/22.jpg");

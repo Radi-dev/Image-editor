@@ -3,7 +3,6 @@ import React, { useState } from "react";
 function Checkbox({
   fullImage,
   handleChange,
-  color,
   checkText,
   uncheckText,
   ...props

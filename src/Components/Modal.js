@@ -4,6 +4,7 @@ import { SketchPicker } from "react-color";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import FontPickComponent from "./fontPicker";
+import TextStyleToggles from "./textStyleToggles";
 
 // custom Hook
 function OnClickOutside(ref, handler) {
@@ -53,9 +54,12 @@ export default function Modal({ open, setOpen, modChildStyles, ...props }) {
 }
 
 const Moda = ({ id, modChildStyles }) => {
-  const [value, setValue] = React.useState("#000");
+  const [colorValue, setcolorValue] = React.useState("#000");
   const [showPicker, setShowPicker] = useState(false);
   const [activeFontFamily, setActiveFontFamily] = useState("Open Sans");
+  const [textAlign, setTextAlign] = useState("center");
+  const [bold, setBold] = useState("normal");
+  const [italic, setItalic] = useState("normal");
 
   const onClick = () => {
     setShowPicker(!showPicker);
@@ -65,18 +69,33 @@ const Moda = ({ id, modChildStyles }) => {
     setShowPicker(false);
   };
 
+  const handleBold = () => {
+    const weightProp = bold === "normal" ? "bold" : "normal";
+    const weight = { fontWeight: weightProp };
+    id ? modChildStyles(id, weight) : console.log();
+    setBold(weightProp);
+  };
+
+  const handleItalic = () => {
+    const italicProp = italic === "normal" ? "italic" : "normal";
+    const italicize = { fontStyle: italicProp };
+    id ? modChildStyles(id, italicize) : console.log();
+    setItalic(italicProp);
+  };
+
+  const handleAlign = (align) => {
+    //  const fontFamily = { fontFamily: font };
+    //  id ? modChildStyles(id, fontFamily) : console.log();
+    // setActiveFontFamily(font);
+  };
+
   const onChangeColor = (color) => {
-    console.log(color.rgb);
-    console.log(id);
     const rgb = color.rgb;
     const colorStyle = { color: `rgba(${rgb.r},${rgb.g},${rgb.b},${rgb.a})` };
     id ? modChildStyles(id, colorStyle) : console.log();
-    setValue(color.rgb);
+    setcolorValue(rgb);
   };
   const onChangeFont = (font) => {
-    console.log(font);
-    console.log(id);
-
     const fontFamily = { fontFamily: font };
     id ? modChildStyles(id, fontFamily) : console.log();
     setActiveFontFamily(font);
@@ -85,8 +104,8 @@ const Moda = ({ id, modChildStyles }) => {
   return (
     <div
       id="modal"
-      class="bg-white top- 32 absolute right-8  rounded shadow p-8 m-4 min-h-max text-center"
-      style={{ height: "420px" }}
+      class="bg-white top- 32 absolute right-8  rounded shadow p-8 m-4 min-h-max text-center flex justify-center"
+      style={{ height: "420px", width: "300px" }}
     >
       <strong className="text-gray-600 absolute top-0 text-right pr-4 inset-x-0 ">
         o
@@ -102,10 +121,19 @@ const Moda = ({ id, modChildStyles }) => {
             activeFontFamily={activeFontFamily}
             onChangeFont={onChangeFont}
           />
+          <br />
+          <hr />
+          <br />
+          <TextStyleToggles
+            bold={bold}
+            italic={italic}
+            changeBold={handleBold}
+            changeItalic={handleItalic}
+          />
         </TabPanel>
         <TabPanel>
-          <div class="mb-4">
-            <SketchPicker color={value} onChange={onChangeColor} />
+          <div>
+            <SketchPicker color={colorValue} onChange={onChangeColor} />
           </div>
         </TabPanel>
       </Tabs>
