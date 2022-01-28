@@ -20,7 +20,9 @@ export default function FittingText(props) {
         style={props.style.printModeBorder}
       >
         <Textfit mode="multi" style={{ height: "100%", ...props.child.style }}>
-          {props.child.data}
+          <div onClick={() => props.modalHandler(props.child.id)}>
+            {props.child.data}
+          </div>
         </Textfit>
         <span
           className="  -rotate-45 absolute block -right-1.5 -bottom-1.5 text-center pointer-events-none p w-6 h-6 rounded-full bg-gray-300"

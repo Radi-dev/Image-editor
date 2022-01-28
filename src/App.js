@@ -9,6 +9,7 @@ import { useDebounce, useDebounceCallback } from "@react-hook/debounce";
 
 import FileUpload from "./Components/Uploads";
 import Workspace from "./Components/Workspace";
+import Modal from "./Components/Modal";
 
 import { styles } from "./Components/styles";
 function App() {
@@ -78,9 +79,11 @@ function App() {
     }, 500);
   };
 
+  const handleBatch = (second) => {};
+
   return (
-    <>
-      <div className="App">
+    <div className="relative h-screen">
+      <div className=" w-screen h-2/3 overflow-scroll m-2 shadow-xl">
         <Workspace
           image={image}
           ref={componentRef}
@@ -90,16 +93,16 @@ function App() {
         >
           {childrenItems}
         </Workspace>
-        <FileUpload
-          image={image}
-          setImage={setImage}
-          setChildren={handleChildren}
-        />
       </div>
+      <FileUpload
+        image={image}
+        setImage={setImage}
+        setChildren={handleChildren}
+      />
       <input
         type={"color"}
         onChange={(e) => {
-          modChildStyles(3, { color: e.target.value });
+          modChildStyles(10, { color: e.target.value });
         }}
       ></input>
 
@@ -109,13 +112,19 @@ function App() {
       >
         saveFile
       </div>
+      <div
+        className=" bg-orange-400 m-2 rounded border shadow p-2 inline-flex cursor-pointer"
+        onClick={""}
+      >
+        Edit
+      </div>
       <button
         className="border bg-green-200 p-1"
         onClick={() => {
           setGenStyles(styles);
         }}
       >
-        click
+        preview
       </button>
       <button
         className=" border-gray-400 rounded-lg m-1 p-1 border-2"
@@ -137,12 +146,12 @@ function App() {
       </button>
 
       <div
-        className=" bg-orange-400 rounded border shadow p-2 inline-flex"
-        onClick={handleChildren}
+        className=" bg-orange-400 rounded border shadow p-2 inline-flex cursor-pointer"
+        onClick={handleBatch}
       >
-        add element
+        Batch download
       </div>
-    </>
+    </div>
   );
 }
 

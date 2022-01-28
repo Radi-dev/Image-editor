@@ -53,7 +53,7 @@ export default function FileUpload({ image, setImage, setChildren, ...props }) {
   };
   //setChildren(arrayData[row]);
   return (
-    <section className="App">
+    <section className="grid gap-3">
       <div>
         <input
           type="file"
@@ -75,7 +75,7 @@ export default function FileUpload({ image, setImage, setChildren, ...props }) {
             <button
               onClick={previous}
               type="button"
-              className="w-full p-4 border text-base rounded-l-xl text-gray-600 bg-white hover:bg-gray-100"
+              className="w-screens p-4 border text-base rounded-l-xl text-gray-600 bg-white hover:bg-gray-100"
             >
               <svg
                 width="9"
@@ -116,7 +116,7 @@ export default function FileUpload({ image, setImage, setChildren, ...props }) {
           <p>
             Line {row + 1} of {arrayData.length}
           </p>
-          <div className="flex w-screen overflow-x-scroll">
+          <div className="flex w-full overflow-x-scroll">
             {console.log("array data row is: " + arrayData[row])}
             {arrayData[row].map((data, i) => (
               <div
