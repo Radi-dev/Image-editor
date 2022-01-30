@@ -1,52 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Draggable from "react-draggable";
 import FittingText from "./FittingText";
 import Modal from "./Modal";
+import { AppContext } from "./contexts";
+import { WorkspaceContext } from "./contexts";
 
-const EditBox = (props) => {
+const EditBox = ({ child, i }) => {
+  const { editModeStyles } = useContext(AppContext);
   return (
-    <Draggable key={props.i} handle="strong">
+    <Draggable handle="strong">
       <div
-        key={props.i}
+        key={i}
         className="absolute cursor-default w-min max -w-xs overflow-hidden"
       >
         <strong
-          style={props.style.printModeAll}
+          style={editModeStyles.printModeAll}
           className=" z-10 absolute inset-x-0 text-center text-gray-500 text-transp arent "
         >
-          {`< ${props.child.id} >`}
+          {`< ${child.id} >`}
         </strong>
 
-        <FittingText
-          style={props.style}
-          child={props.child}
-          modalHandler={props.modalHandler}
-        />
+        <FittingText child={child} />
       </div>
     </Draggable>
   );
 };
 
-const Workspace = React.forwardRef(({ image, fullImage, ...props }, ref) => {
+const Workspace = React.forwardRef(({ children }, ref) => {
+  const { image, fullImage } = useContext(AppContext);
   const [open, setOpen] = useState(null);
   const itemClick = (item) => setOpen(item);
 
   return (
-    <>
-      <Modal
-        id={open}
-        open={open}
-        setOpen={setOpen}
-        modChildStyles={props.modChildStyles}
-      />
+    <WorkspaceContext.Provider value={{ open, setOpen, itemClick }}>
+      <Modal id={open} />
       <section ref={ref} className="w-screen h-max  box-border ">
-        {props.children.map((child, i) => (
-          <EditBox
-            i={i}
-            child={child}
-            style={props.style}
-            modalHandler={itemClick}
-          />
+        {children.map((child, i) => (
+          <EditBox i={i} child={child} />
         ))}
 
         <img
@@ -55,7 +45,7 @@ const Workspace = React.forwardRef(({ image, fullImage, ...props }, ref) => {
           alt=""
         ></img>
       </section>
-    </>
+    </WorkspaceContext.Provider>
   );
 });
 

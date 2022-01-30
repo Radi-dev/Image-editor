@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import Draggable from "react-draggable";
 import { SketchPicker } from "react-color";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import FontPickComponent from "./fontPicker";
 import TextStyleToggles from "./textStyleToggles";
+import { AppContext, WorkspaceContext } from "./contexts";
 
 // custom Hook
 function OnClickOutside(ref, handler) {
@@ -25,8 +26,10 @@ function OnClickOutside(ref, handler) {
   }, [ref, handler]);
 }
 
-export default function Modal({ open, setOpen, modChildStyles, ...props }) {
+export default function Modal(props) {
   const ref = useRef();
+  const { open, setOpen } = useContext(WorkspaceContext);
+  const { modifyTextboxStyles } = useContext(AppContext);
   const closeClick = () => setOpen(null);
   OnClickOutside(ref, () => setOpen(null));
 
@@ -39,7 +42,7 @@ export default function Modal({ open, setOpen, modChildStyles, ...props }) {
             className="
           absolute right-0 p-0 top-4  z-40"
           >
-            <Moda id={props.id} modChildStyles={modChildStyles} />
+            <Moda id={props.id} modifyTextboxStyles={modifyTextboxStyles} />
           </div>
         ) : (
           <div
@@ -53,7 +56,7 @@ export default function Modal({ open, setOpen, modChildStyles, ...props }) {
   );
 }
 
-const Moda = ({ id, modChildStyles }) => {
+const Moda = ({ id, modifyTextboxStyles }) => {
   const [colorValue, setcolorValue] = React.useState("#000");
   const [showPicker, setShowPicker] = useState(false);
   const [activeFontFamily, setActiveFontFamily] = useState("Open Sans");
@@ -72,32 +75,32 @@ const Moda = ({ id, modChildStyles }) => {
   const handleBold = () => {
     const weightProp = bold === "normal" ? "bold" : "normal";
     const weight = { fontWeight: weightProp };
-    id ? modChildStyles(id, weight) : console.log();
+    id ? modifyTextboxStyles(id, weight) : console.log();
     setBold(weightProp);
   };
 
   const handleItalic = () => {
     const italicProp = italic === "normal" ? "italic" : "normal";
     const italicize = { fontStyle: italicProp };
-    id ? modChildStyles(id, italicize) : console.log();
+    id ? modifyTextboxStyles(id, italicize) : console.log();
     setItalic(italicProp);
   };
 
   const handleAlign = (align) => {
     //  const fontFamily = { fontFamily: font };
-    //  id ? modChildStyles(id, fontFamily) : console.log();
+    //  id ? modifyTextboxStyles(id, fontFamily) : console.log();
     // setActiveFontFamily(font);
   };
 
   const onChangeColor = (color) => {
     const rgb = color.rgb;
     const colorStyle = { color: `rgba(${rgb.r},${rgb.g},${rgb.b},${rgb.a})` };
-    id ? modChildStyles(id, colorStyle) : console.log();
+    id ? modifyTextboxStyles(id, colorStyle) : console.log();
     setcolorValue(rgb);
   };
   const onChangeFont = (font) => {
     const fontFamily = { fontFamily: font };
-    id ? modChildStyles(id, fontFamily) : console.log();
+    id ? modifyTextboxStyles(id, fontFamily) : console.log();
     setActiveFontFamily(font);
   };
 

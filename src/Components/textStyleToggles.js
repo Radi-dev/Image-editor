@@ -18,7 +18,7 @@ export default function TextStyleToggles({
               className="checked:bg-green-500 outline-none focus:outline-none right-5 checked:right-0 duration-200 ease-in absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer"
             />
             <label
-              for="Bold"
+              htmlFor="Bold"
               className="block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer"
             ></label>
           </div>
@@ -41,7 +41,7 @@ export default function TextStyleToggles({
               } checked:bg- yellow-500 outline-none focus:outline-none  checked:ri ght-0 duration-200 ease-in absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer`}
             />
             <label
-              for="Orange"
+              htmlFor="Orange"
               className="block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer"
             ></label>
           </div>
@@ -64,7 +64,7 @@ export default function TextStyleToggles({
               checked
             />
             <label
-              for="Purple"
+              htmlFor="Purple"
               className="block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer"
             ></label>
           </div>
@@ -91,7 +91,7 @@ export default function TextStyleToggles({
               checked
             />
             <label
-              for="Black"
+              htmlFor="Black"
               className="block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer"
             ></label>
           </div>
@@ -118,7 +118,7 @@ export default function TextStyleToggles({
               checked
             />
             <label
-              for="Indigo"
+              htmlFor="Indigo"
               className="block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer"
             ></label>
           </div>
@@ -145,7 +145,7 @@ export default function TextStyleToggles({
               checked
             />
             <label
-              for="Red"
+              htmlFor="Red"
               className="block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer"
             ></label>
           </div>

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import {
   exportComponentAsJPEG,
   exportComponentAsPDF,
@@ -10,16 +10,17 @@ import { useDebounce } from "@react-hook/debounce";
 import FileUpload from "./Components/Uploads";
 import Workspace from "./Components/Workspace";
 import { styles } from "./Components/styles";
-import Checkbox from "./checkbox";
-import TextStyleToggles from "./Components/textStyleToggles";
+import Checkbox from "./Components/checkbox";
+import { AppContext } from "./Components/contexts";
+
 function App() {
   const componentRef = useRef();
   const [image, setImage] = useState("/22.jpg");
   const [childrenItems, setChildrenItems] = useDebounce([]);
   const [newStyles, setNewStyles] = useDebounce({});
 
-  const [toggleResize, setToggleResize] = useState(false);
-  const [genStyles, setGenStyles] = useState({});
+  //const [toggleResize, setToggleResize] = useState(false);
+  const [editModeStyles, setEditModeStyles] = useState({});
   const [fullImage, setFullImage] = useState(false);
 
   const handlefullImage = () => {
@@ -61,7 +62,7 @@ function App() {
     setChildrenItems(newArray);
   };
 
-  const modChildStyles = (id, style = {}) => {
+  const modifyTextboxStyles = (id, style = {}) => {
     var newStylesObj = { ...newStyles };
     var childrenItms = [...childrenItems];
     newStylesObj[id] = { ...newStylesObj[id], ...style };
@@ -75,89 +76,99 @@ function App() {
   };
 
   const handleSaveAs = (callback) => {
-    setGenStyles(styles);
+    setEditModeStyles(styles);
     setTimeout(() => {
       callback(componentRef);
     }, 500);
     setTimeout(() => {
-      setGenStyles({});
+      setEditModeStyles({});
     }, 500);
   };
 
   const handleBatch = (second) => {};
 
   return (
-    <div className=" w-screen box-border">
-      <div className=" shadow-xl mb-2">
-        <Workspace
-          image={image}
+    <AppContext.Provider
+      value={{
+        image,
+        fullImage,
+        componentRef,
+        //toggleResize,
+        editModeStyles,
+        modifyTextboxStyles,
+      }}
+    >
+      <div className=" w-screen box-border">
+        <div className=" shadow-xl mb-2">
+          <Workspace ref={componentRef}>
+            {/*image={image}
+            fullImage={fullImage}
+            toggleResize={toggleResize}
+            style={editModeStyles}
+  modifyTextboxStyles={modifyTextboxStyles}*/}
+
+            {childrenItems}
+          </Workspace>
+        </div>
+        <Checkbox
           fullImage={fullImage}
-          ref={componentRef}
-          toggleResize={toggleResize}
-          style={genStyles}
-          modChildStyles={modChildStyles}
+          handleChange={handlefullImage}
+          checkText="Fit to screen"
+          uncheckText="Use full Image"
+        />
+        <FileUpload
+          image={image}
+          setImage={setImage}
+          setChildren={handleChildren}
+        />
+
+        <div
+          className="hidden bg-orange-400 rounded border shadow p-2 inl ine-flex"
+          onClick={handleDownloadImage}
         >
-          {childrenItems}
-        </Workspace>
-      </div>
-      <Checkbox
-        fullImage={fullImage}
-        handleChange={handlefullImage}
-        checkText="Fit to screen"
-        uncheckText="Use full Image"
-      />
-      <FileUpload
-        image={image}
-        setImage={setImage}
-        setChildren={handleChildren}
-      />
+          saveFile
+        </div>
+        <div
+          className=" bg-orange-400 m-2 rounded border shadow p-2 inline-flex cursor-pointer"
+          onClick={() => ""}
+        >
+          Edit
+        </div>
+        <button
+          className="border bg-green-200 p-1"
+          onClick={() => {
+            setEditModeStyles(styles);
+          }}
+        >
+          preview
+        </button>
+        <button
+          className=" border-gray-400 rounded-lg m-1 p-1 border-2"
+          onClick={() => handleSaveAs(exportComponentAsJPEG)}
+        >
+          Export As JPEG
+        </button>
+        <button
+          className=" hidden border-gray-400 rounded-lg m-1 p-1 border-2"
+          onClick={() => handleSaveAs(exportComponentAsPDF)}
+        >
+          Export As PDF
+        </button>
+        <button
+          className=" border-gray-400 rounded-lg m-1 p-1 border-2"
+          onClick={() => handleSaveAs(exportComponentAsPNG)}
+        >
+          Export As PNG
+        </button>
 
-      <div
-        className="hidden bg-orange-400 rounded border shadow p-2 inl ine-flex"
-        onClick={handleDownloadImage}
-      >
-        saveFile
+        <div
+          className=" bg-orange-400 rounded border shadow p-2 inline-flex cursor-pointer"
+          onClick={handleBatch}
+        >
+          Batch download
+        </div>
       </div>
-      <div
-        className=" bg-orange-400 m-2 rounded border shadow p-2 inline-flex cursor-pointer"
-        onClick={""}
-      >
-        Edit
-      </div>
-      <button
-        className="border bg-green-200 p-1"
-        onClick={() => {
-          setGenStyles(styles);
-        }}
-      >
-        preview
-      </button>
-      <button
-        className=" border-gray-400 rounded-lg m-1 p-1 border-2"
-        onClick={() => handleSaveAs(exportComponentAsJPEG)}
-      >
-        Export As JPEG
-      </button>
-      <button
-        className=" hidden border-gray-400 rounded-lg m-1 p-1 border-2"
-        onClick={() => handleSaveAs(exportComponentAsPDF)}
-      >
-        Export As PDF
-      </button>
-      <button
-        className=" border-gray-400 rounded-lg m-1 p-1 border-2"
-        onClick={() => handleSaveAs(exportComponentAsPNG)}
-      >
-        Export As PNG
-      </button>
-
-      <div
-        className=" bg-orange-400 rounded border shadow p-2 inline-flex cursor-pointer"
-        onClick={handleBatch}
-      >
-        Batch download
-      </div>
-    </div>
+    </AppContext.Provider>
   );
 }
 
