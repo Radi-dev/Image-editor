@@ -20,7 +20,7 @@ function App() {
   const [newStyles, setNewStyles] = useDebounce({});
 
   //const [toggleResize, setToggleResize] = useState(false);
-  const [editModeStyles, setEditModeStyles] = useState({});
+  const [guideStyles, setGuideStyles] = useState({});
   const [fullImage, setFullImage] = useState(false);
 
   const handlefullImage = () => {
@@ -76,12 +76,12 @@ function App() {
   };
 
   const handleSaveAs = (callback) => {
-    setEditModeStyles(styles);
+    setGuideStyles(styles);
     setTimeout(() => {
       callback(componentRef);
     }, 500);
     setTimeout(() => {
-      setEditModeStyles({});
+      setGuideStyles({});
     }, 500);
   };
 
@@ -91,24 +91,18 @@ function App() {
     <AppContext.Provider
       value={{
         image,
+        setImage,
         fullImage,
         componentRef,
-        //toggleResize,
-        editModeStyles,
+        childrenItems,
+        guideStyles,
         modifyTextboxStyles,
+        handleChildren,
       }}
     >
       <div className=" w-screen box-border">
         <div className=" shadow-xl mb-2">
-          <Workspace ref={componentRef}>
-            {/*image={image}
-            fullImage={fullImage}
-            toggleResize={toggleResize}
-            style={editModeStyles}
-  modifyTextboxStyles={modifyTextboxStyles}*/}
-
-            {childrenItems}
-          </Workspace>
+          <Workspace ref={componentRef} />
         </div>
         <Checkbox
           fullImage={fullImage}
@@ -116,11 +110,7 @@ function App() {
           checkText="Fit to screen"
           uncheckText="Use full Image"
         />
-        <FileUpload
-          image={image}
-          setImage={setImage}
-          setChildren={handleChildren}
-        />
+        <FileUpload />
 
         <div
           className="hidden bg-orange-400 rounded border shadow p-2 inl ine-flex"
@@ -137,7 +127,7 @@ function App() {
         <button
           className="border bg-green-200 p-1"
           onClick={() => {
-            setEditModeStyles(styles);
+            setGuideStyles(styles);
           }}
         >
           preview

@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import * as XLSX from "xlsx";
 import { dummyArray } from "./dummyData";
+import { AppContext } from "./contexts";
 
-export default function FileUpload({ image, setImage, setChildren, ...props }) {
+export default function FileUpload() {
   const [row, setRow] = useState(0);
   const [arrayData, setArrayData] = useState(dummyArray);
+  const { setImage, handleChildren } = useContext(AppContext);
 
   const imageHandler = (e) => {
     const reader = new FileReader();
@@ -38,20 +40,20 @@ export default function FileUpload({ image, setImage, setChildren, ...props }) {
   const previous = (second) => {
     let newRow = row === 0 ? arrayData.length - 1 : row - 1;
     //
-    setChildren(arrayData[newRow]);
+    handleChildren(arrayData[newRow]);
     setRow(newRow);
   };
   const next = (second) => {
     let newRow = row === arrayData.length - 1 ? 0 : row + 1;
     //
-    setChildren(arrayData[newRow]);
+    handleChildren(arrayData[newRow]);
     setRow(newRow);
   };
   const resetRow = (second) => {
-    setChildren(arrayData[0]);
+    handleChildren(arrayData[0]);
     setRow(0);
   };
-  //setChildren(arrayData[row]);
+  //handleChildren(arrayData[row]);
   return (
     <section className="grid gap-3">
       <div>
@@ -122,7 +124,7 @@ export default function FileUpload({ image, setImage, setChildren, ...props }) {
               <div
                 className="border-gray-400 h-36 rounded-lg m-1 p-1 border-2"
                 key={i}
-                onClick={() => setChildren(arrayData[row])}
+                onClick={() => handleChildren(arrayData[row])}
               >
                 {i + 1}. {data}
               </div>

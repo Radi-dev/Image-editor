@@ -6,7 +6,7 @@ import { AppContext } from "./contexts";
 import { WorkspaceContext } from "./contexts";
 
 const EditBox = ({ child, i }) => {
-  const { editModeStyles } = useContext(AppContext);
+  const { guideStyles } = useContext(AppContext);
   return (
     <Draggable handle="strong">
       <div
@@ -14,7 +14,7 @@ const EditBox = ({ child, i }) => {
         className="absolute cursor-default w-min max -w-xs overflow-hidden"
       >
         <strong
-          style={editModeStyles.printModeAll}
+          style={guideStyles.printModeAll}
           className=" z-10 absolute inset-x-0 text-center text-gray-500 text-transp arent "
         >
           {`< ${child.id} >`}
@@ -26,16 +26,16 @@ const EditBox = ({ child, i }) => {
   );
 };
 
-const Workspace = React.forwardRef(({ children }, ref) => {
-  const { image, fullImage } = useContext(AppContext);
+const Workspace = React.forwardRef((props, ref) => {
+  const { image, fullImage, childrenItems } = useContext(AppContext);
   const [open, setOpen] = useState(null);
   const itemClick = (item) => setOpen(item);
 
   return (
     <WorkspaceContext.Provider value={{ open, setOpen, itemClick }}>
-      <Modal id={open} />
+      <Modal />
       <section ref={ref} className="w-screen h-max  box-border ">
-        {children.map((child, i) => (
+        {childrenItems.map((child, i) => (
           <EditBox i={i} child={child} />
         ))}
 

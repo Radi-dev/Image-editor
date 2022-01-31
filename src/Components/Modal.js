@@ -26,11 +26,9 @@ function OnClickOutside(ref, handler) {
   }, [ref, handler]);
 }
 
-export default function Modal(props) {
+export default function Modal() {
   const ref = useRef();
   const { open, setOpen } = useContext(WorkspaceContext);
-  const { modifyTextboxStyles } = useContext(AppContext);
-  const closeClick = () => setOpen(null);
   OnClickOutside(ref, () => setOpen(null));
 
   return (
@@ -42,7 +40,7 @@ export default function Modal(props) {
             className="
           absolute right-0 p-0 top-4  z-40"
           >
-            <Moda id={props.id} modifyTextboxStyles={modifyTextboxStyles} />
+            <Moda openId={open} />
           </div>
         ) : (
           <div
@@ -56,13 +54,15 @@ export default function Modal(props) {
   );
 }
 
-const Moda = ({ id, modifyTextboxStyles }) => {
+const Moda = ({ openId }) => {
   const [colorValue, setcolorValue] = React.useState("#000");
   const [showPicker, setShowPicker] = useState(false);
   const [activeFontFamily, setActiveFontFamily] = useState("Open Sans");
   const [textAlign, setTextAlign] = useState("center");
   const [bold, setBold] = useState("normal");
   const [italic, setItalic] = useState("normal");
+
+  const { modifyTextboxStyles } = useContext(AppContext);
 
   const onClick = () => {
     setShowPicker(!showPicker);
@@ -75,32 +75,32 @@ const Moda = ({ id, modifyTextboxStyles }) => {
   const handleBold = () => {
     const weightProp = bold === "normal" ? "bold" : "normal";
     const weight = { fontWeight: weightProp };
-    id ? modifyTextboxStyles(id, weight) : console.log();
+    openId ? modifyTextboxStyles(openId, weight) : console.log();
     setBold(weightProp);
   };
 
   const handleItalic = () => {
     const italicProp = italic === "normal" ? "italic" : "normal";
     const italicize = { fontStyle: italicProp };
-    id ? modifyTextboxStyles(id, italicize) : console.log();
+    openId ? modifyTextboxStyles(openId, italicize) : console.log();
     setItalic(italicProp);
   };
 
   const handleAlign = (align) => {
     //  const fontFamily = { fontFamily: font };
-    //  id ? modifyTextboxStyles(id, fontFamily) : console.log();
+    //  openId ? modifyTextboxStyles(openId, fontFamily) : console.log();
     // setActiveFontFamily(font);
   };
 
   const onChangeColor = (color) => {
     const rgb = color.rgb;
     const colorStyle = { color: `rgba(${rgb.r},${rgb.g},${rgb.b},${rgb.a})` };
-    id ? modifyTextboxStyles(id, colorStyle) : console.log();
+    openId ? modifyTextboxStyles(openId, colorStyle) : console.log();
     setcolorValue(rgb);
   };
   const onChangeFont = (font) => {
     const fontFamily = { fontFamily: font };
-    id ? modifyTextboxStyles(id, fontFamily) : console.log();
+    openId ? modifyTextboxStyles(openId, fontFamily) : console.log();
     setActiveFontFamily(font);
   };
 
@@ -120,19 +120,22 @@ const Moda = ({ id, modifyTextboxStyles }) => {
         </TabList>
 
         <TabPanel>
-          <FontPickComponent
-            activeFontFamily={activeFontFamily}
-            onChangeFont={onChangeFont}
-          />
-          <br />
-          <hr />
-          <br />
-          <TextStyleToggles
-            bold={bold}
-            italic={italic}
-            changeBold={handleBold}
-            changeItalic={handleItalic}
-          />
+          <div className="rounded p-2 drop-shadow-sm shadow-lg">
+            {" "}
+            <FontPickComponent
+              activeFontFamily={activeFontFamily}
+              onChangeFont={onChangeFont}
+            />
+            <br />
+            <hr />
+            <br />
+            <TextStyleToggles
+              bold={bold}
+              italic={italic}
+              changeBold={handleBold}
+              changeItalic={handleItalic}
+            />
+          </div>
         </TabPanel>
         <TabPanel>
           <div>

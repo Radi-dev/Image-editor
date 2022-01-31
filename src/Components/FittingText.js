@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { AppContext, WorkspaceContext } from "./contexts";
 
 export default function FittingText({ child }) {
-  const { editModeStyles } = useContext(AppContext);
+  const { guideStyles } = useContext(AppContext);
   const { itemClick } = useContext(WorkspaceContext);
 
   const sizes = useResizeDetector({
@@ -16,7 +16,7 @@ export default function FittingText({ child }) {
     <div
       ref={sizes.ref}
       className="relative text-center resize bg-blue-300 bg-opacity-20 rounded border-2 border-gray-800 border-dashed p-2 overflow-hidden "
-      style={editModeStyles.printModeBorder}
+      style={guideStyles.printModeBorder}
       onClick={() => itemClick(child.id)}
     >
       <Textfit mode="multi" style={{ height: "100%", ...child.style }}>
@@ -25,7 +25,7 @@ export default function FittingText({ child }) {
       <span
         className="  -rotate-45 absolute block -right-1.5 -bottom-1.5 text-center pointer-events-none p w-6 h-6 rounded-full bg-gray-300"
         aria-hidden="true"
-        style={editModeStyles.printModeAll}
+        style={guideStyles.printModeAll}
       >
         ↓
       </span>
