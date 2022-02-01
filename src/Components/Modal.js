@@ -58,9 +58,12 @@ const Moda = ({ openId }) => {
   const [colorValue, setcolorValue] = React.useState("#000");
   const [showPicker, setShowPicker] = useState(false);
   const [activeFontFamily, setActiveFontFamily] = useState("Open Sans");
+  const [displayFontFamily, setDisplayFontFamily] = useState(activeFontFamily);
   const [textAlign, setTextAlign] = useState("center");
   const [bold, setBold] = useState("normal");
   const [italic, setItalic] = useState("normal");
+
+  const online = window.navigator.onLine;
 
   const { modifyTextboxStyles, childrenItems } = useContext(AppContext);
   const styling = childrenItems[openId - 1].style;
@@ -111,11 +114,6 @@ const Moda = ({ openId }) => {
       console.log(italicProp);
       setItalic(italicProp);
     }
-    if (styling.fontWeight) {
-      const boldProp = styling.fontWeight === "bold" ? "bold" : "normal";
-      console.log(boldProp);
-      setBold(boldProp);
-    }
   }, []);
   useEffect(() => {
     if (styling.fontWeight) {
@@ -135,11 +133,18 @@ const Moda = ({ openId }) => {
     if (styling.fontFamily) {
       const fontProp = styling.fontFamily;
       console.log(fontProp);
-      setTimeout(() => {
-        setActiveFontFamily(fontProp);
-      }, 1000);
+
+      setDisplayFontFamily(fontProp);
     }
-  }, []);
+  }, [activeFontFamily]);
+
+  useEffect(() => {
+    if (styling.textAlign) {
+      const alignProp = styling.textAlign;
+      console.log(alignProp);
+      setTextAlign(alignProp);
+    }
+  });
 
   return (
     <div
@@ -161,6 +166,7 @@ const Moda = ({ openId }) => {
             {" "}
             <FontPickComponent
               activeFontFamily={activeFontFamily}
+              displayFontFamily={displayFontFamily}
               onChangeFont={onChangeFont}
             />
             <br />
@@ -169,6 +175,7 @@ const Moda = ({ openId }) => {
             <TextStyleToggles
               bold={bold}
               italic={italic}
+              align={textAlign}
               changeBold={handleBold}
               changeItalic={handleItalic}
               changeAlign={handleAlign}

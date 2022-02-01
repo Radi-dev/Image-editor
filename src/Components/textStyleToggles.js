@@ -1,6 +1,8 @@
+import { radioButtons } from "./radioButtons";
 export default function TextStyleToggles({
   bold,
   italic,
+  align,
   changeBold,
   changeItalic,
   changeAlign,
@@ -65,147 +67,46 @@ export default function TextStyleToggles({
           onChange={(e) => changeAlign(e.target.value)}
         >
           <legend className="">Text Alignment</legend>
-          <div className="mb-3 gap-3 flex items-center">
-            <div className="inline-flex  items-center ">
-              <input
-                type="radio"
-                name="textAlign"
-                value="center"
-                className="form-radio h-5 w-5 text-purple-500"
-              />
-              <label
-                htmlFor="Purple"
-                className="block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer"
-              ></label>
-            </div>
-            <span className="text-gray-400 font-medium">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                viewBox="0 0 20 20"
-                fill="currentColor"
+          {radioButtons.map((radioBtn, i) => (
+            <div key={i} className="mb-3 gap-3 flex items-center">
+              <div className="inline-flex  items-center ">
+                {console.log("align is: " + align)}
+                {align === radioBtn.name ? (
+                  <input
+                    type="radio"
+                    name="textAlign"
+                    value={radioBtn.name}
+                    checked
+                    className="form-radio h-5 w-5"
+                    style={{ color: radioBtn.color }}
+                  />
+                ) : (
+                  <input
+                    type="radio"
+                    name="textAlign"
+                    id={radioBtn.name}
+                    value={radioBtn.name}
+                    className="form-radio h-5 w-5"
+                    style={{ color: radioBtn.color }}
+                  />
+                )}
+                <label
+                  htmlFor={radioBtn.name}
+                  className="block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer"
+                ></label>
+              </div>
+              <span
+                style={{
+                  color: align === radioBtn.name ? "black" : "rgb(156 163 175)",
+                }}
+                className="text-gray-400 font-medium"
               >
-                <path
-                  fillRule="evenodd"
-                  d="M3 7a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 13a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </span>
-          </div>
-
-          <div className="mb-3 gap-3 flex items-center">
-            <div className="inline-flex  items-center ">
-              <input
-                type="radio"
-                name="textAlign"
-                value="jutify"
-                className="form-radio h-5 w-5 text-black"
-              />
-              <label
-                htmlFor="Black"
-                className="block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer"
-              ></label>
+                {radioBtn.icon}
+              </span>
             </div>
-            <span className="text-gray-400 font-medium">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </span>
-          </div>
-          <div className="mb-3 gap-3 flex items-center">
-            <div className="inline-flex  items-center ">
-              <input
-                type="radio"
-                name="textAlign"
-                value="left"
-                className="form-radio h-5 w-5 text-indigo-500"
-              />
-              <label
-                htmlFor="Indigo"
-                className="block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer"
-              ></label>
-            </div>
-            <span className="text-gray-400 font-medium">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </span>
-          </div>
-          <div className="mb-3 gap-3 flex items-center">
-            <div className="inline-flex  items-center ">
-              <input
-                type="radio"
-                name="textAlign"
-                value="right"
-                className="form-radio h-5 w-5 text-red-500"
-              />
-              <label
-                htmlFor="Red"
-                className="block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer"
-              ></label>
-            </div>
-            <span className="text-gray-400 font-medium">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </span>
-          </div>
+          ))}
         </fieldset>
       </div>
     </>
   );
 }
-<div className="mb-3 flex">
-  <div className="relative inline-block w-10 mr-2 align-middle select-none">
-    <label className="inline-flex items-center mt-3">
-      <input
-        type="radio"
-        className="form-radio h-5 w-5 text-purple-600"
-        checked
-      />
-      <span className="ml-2 text-gray-700">label</span>
-    </label>
-  </div>
-  <span className="text-gray-400 font-medium">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className="h-5 w-5"
-      viewBox="0 0 20 20"
-      fill="currentColor"
-    >
-      <path
-        fillRule="evenodd"
-        d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z"
-        clipRule="evenodd"
-      />
-    </svg>
-  </span>
-</div>;
