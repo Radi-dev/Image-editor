@@ -20,7 +20,7 @@ export default function TextStyleToggles({
               onChange={changeBold}
               className={`${
                 bold === "normal" ? "right-5 " : "bg-green-500 right-0"
-              } checked:bg- green-500 outline-none focus:outline-none checked :right-0 duration-200 ease-in absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer`}
+              } absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer`}
             />
             <label
               htmlFor="Bold"
@@ -43,7 +43,7 @@ export default function TextStyleToggles({
               onChange={changeItalic}
               className={`${
                 italic === "normal" ? "right-5 " : "bg-yellow-500 right-0"
-              } checked:bg- yellow-500 outline-none focus:outline-none  checked:ri ght-0 duration-200 ease-in absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer`}
+              } absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer`}
             />
             <label
               htmlFor="Italic"
