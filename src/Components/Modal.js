@@ -62,7 +62,8 @@ const Moda = ({ openId }) => {
   const [bold, setBold] = useState("normal");
   const [italic, setItalic] = useState("normal");
 
-  const { modifyTextboxStyles } = useContext(AppContext);
+  const { modifyTextboxStyles, childrenItems } = useContext(AppContext);
+  const styling = childrenItems[openId - 1].style;
 
   const onClick = () => {
     setShowPicker(!showPicker);
@@ -103,6 +104,32 @@ const Moda = ({ openId }) => {
     openId ? modifyTextboxStyles(openId, fontFamily) : console.log();
     setActiveFontFamily(font);
   };
+  useEffect(() => {
+    if (styling.fontStyle) {
+      const italicProp = styling.fontStyle === "italic" ? "italic" : "normal";
+      console.log(italicProp);
+      setItalic(italicProp);
+    }
+    if (styling.fontWeight) {
+      const boldProp = styling.fontWeight === "bold" ? "bold" : "normal";
+      console.log(boldProp);
+      setBold(boldProp);
+    }
+  }, []);
+  useEffect(() => {
+    if (styling.fontWeight) {
+      const boldProp = styling.fontWeight === "bold" ? "bold" : "normal";
+      console.log(boldProp);
+      setBold(boldProp);
+    }
+  }, []);
+  useEffect(() => {
+    if (styling.color) {
+      const colorProp = styling.color;
+      console.log(colorProp);
+      setcolorValue(colorProp);
+    }
+  }, []);
 
   return (
     <div

@@ -51,10 +51,17 @@ function App() {
   const handleChildren = (newItem) => {
     var newArray = [];
     for (var i = 0; i < newItem.length; ++i) {
-      var newObj = { id: null, active: false, data: "", style: {} };
+      var newObj = {
+        id: null,
+        active: false,
+        data: "",
+        style: {},
+      };
       newObj.id = i + 1;
       newObj.data = newItem[i];
-      newObj.style = newStyles[i + 1];
+      newObj.style = {
+        ...newStyles[i + 1],
+      };
       newArray = [...newArray, newObj];
     }
     console.log("arrayrr is: ");

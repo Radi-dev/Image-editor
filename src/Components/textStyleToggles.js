@@ -15,7 +15,9 @@ export default function TextStyleToggles({
               name="Bold"
               id="Bold"
               onChange={changeBold}
-              className="checked:bg-green-500 outline-none focus:outline-none right-5 checked:right-0 duration-200 ease-in absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer"
+              className={`${
+                bold === "normal" ? "right-5 " : "bg-green-500 right-0"
+              } checked:bg- green-500 outline-none focus:outline-none checked :right-0 duration-200 ease-in absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer`}
             />
             <label
               htmlFor="Bold"
