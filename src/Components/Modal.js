@@ -88,8 +88,9 @@ const Moda = ({ openId }) => {
   };
 
   const handleAlign = (align) => {
-    //  const fontFamily = { fontFamily: font };
-    //  openId ? modifyTextboxStyles(openId, fontFamily) : console.log();
+    console.log(align);
+    const alignProp = { textAlign: align };
+    openId ? modifyTextboxStyles(openId, alignProp) : console.log();
     // setActiveFontFamily(font);
   };
 
@@ -130,6 +131,15 @@ const Moda = ({ openId }) => {
       setcolorValue(colorProp);
     }
   }, []);
+  useEffect(() => {
+    if (styling.fontFamily) {
+      const fontProp = styling.fontFamily;
+      console.log(fontProp);
+      setTimeout(() => {
+        setActiveFontFamily(fontProp);
+      }, 1000);
+    }
+  }, []);
 
   return (
     <div
@@ -161,6 +171,7 @@ const Moda = ({ openId }) => {
               italic={italic}
               changeBold={handleBold}
               changeItalic={handleItalic}
+              changeAlign={handleAlign}
             />
           </div>
         </TabPanel>

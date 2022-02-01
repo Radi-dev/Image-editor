@@ -3,6 +3,7 @@ export default function TextStyleToggles({
   italic,
   changeBold,
   changeItalic,
+  changeAlign,
   ...props
 }) {
   return (
@@ -59,13 +60,17 @@ export default function TextStyleToggles({
           </span>
         </div>
 
-        <fieldset className="col-span-2 grid grid-cols-2">
-          <legend className="text-cente">Text Alignment</legend>
+        <fieldset
+          className="col-span-2 grid grid-cols-2"
+          onChange={(e) => changeAlign(e.target.value)}
+        >
+          <legend className="">Text Alignment</legend>
           <div className="mb-3 gap-3 flex items-center">
             <div className="inline-flex  items-center ">
               <input
                 type="radio"
                 name="textAlign"
+                value="center"
                 className="form-radio h-5 w-5 text-purple-500"
               />
               <label
@@ -94,6 +99,7 @@ export default function TextStyleToggles({
               <input
                 type="radio"
                 name="textAlign"
+                value="jutify"
                 className="form-radio h-5 w-5 text-black"
               />
               <label
@@ -121,6 +127,7 @@ export default function TextStyleToggles({
               <input
                 type="radio"
                 name="textAlign"
+                value="left"
                 className="form-radio h-5 w-5 text-indigo-500"
               />
               <label
@@ -148,6 +155,7 @@ export default function TextStyleToggles({
               <input
                 type="radio"
                 name="textAlign"
+                value="right"
                 className="form-radio h-5 w-5 text-red-500"
               />
               <label
