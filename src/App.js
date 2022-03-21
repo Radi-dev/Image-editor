@@ -9,11 +9,12 @@ import { useDebounce } from "@react-hook/debounce";
 
 import FileUpload from "./Components/Uploads";
 import Workspace from "./Components/Workspace";
-import { styles } from "./Components/styles";
+import { printStyles } from "./Components/printStyles";
 import Checkbox from "./Components/checkbox";
 import { AppContext } from "./Components/contexts";
-
+import { dummyArray } from "./Components/dummyData";
 function App() {
+  const [arrayData, setArrayData] = useState(dummyArray);
   const componentRef = useRef();
   const [image, setImage] = useState("/22.jpg");
   const [childrenItems, setChildrenItems] = useDebounce([]);
@@ -83,16 +84,69 @@ function App() {
   };
 
   const handleSaveAs = (callback) => {
-    setGuideStyles(styles);
+    const date = new Date();
+    const suffix = callback === exportComponentAsJPEG ? ".jpg" : "png";
+    setGuideStyles(printStyles);
     setTimeout(() => {
-      callback(componentRef);
+      callback(componentRef, {
+        fileName:
+          "Img" +
+          date.getFullYear().toString().substr(-2) +
+          date.getMonth() +
+          date.getDay() +
+          date.getTime() +
+          suffix,
+      });
     }, 500);
     setTimeout(() => {
       setGuideStyles({});
     }, 500);
   };
 
-  const handleBatch = (second) => {};
+  const mapChildren = (newItem) => {
+    var newArray = [];
+    for (var i = 0; i < newItem.length; ++i) {
+      var newObj = {
+        id: null,
+        active: false,
+        data: "",
+        style: {},
+      };
+      newObj.id = i + 1;
+      newObj.data = newItem[i];
+      newObj.style = {
+        ...newStyles[i + 1],
+      };
+      newArray = [...newArray, newObj];
+    }
+    return newArray;
+  };
+
+  const handleBatch = (callback) => {
+    setGuideStyles(printStyles);
+    arrayData.forEach((e) => {
+      setTimeout(() => {
+        setChildrenItems(mapChildren(e));
+        console.log("childrnnnn");
+        console.log(childrenItems);
+      }, 20);
+    });
+    //arrayData.forEach((e) =>
+    //    {
+    //      console.log("e here is");
+    //      console.log(e);
+    //      const ss = [...e];
+    //      // handleSaveAs(callback);
+    //        handleChildren(ss);
+    //        console.log("and children is");
+    //        console.log(childrenItems);
+    //
+    //    });//
+
+    // setTimeout(() => {
+    //   setGuideStyles({});
+    //  }, 500);
+  };
 
   return (
     <AppContext.Provider
@@ -105,6 +159,8 @@ function App() {
         guideStyles,
         modifyTextboxStyles,
         handleChildren,
+        arrayData,
+        setArrayData,
       }}
     >
       <div className=" w-screen box-border">
@@ -134,7 +190,7 @@ function App() {
         <button
           className="border bg-green-200 p-1"
           onClick={() => {
-            setGuideStyles(styles);
+            setGuideStyles(printStyles);
           }}
         >
           preview
@@ -159,8 +215,8 @@ function App() {
         </button>
 
         <div
-          className=" bg-orange-400 rounded border shadow p-2 inline-flex cursor-pointer"
-          onClick={handleBatch}
+          className="hidden bg-orange-400 rounded border shadow p-2 in line-flex cursor-pointer"
+          onClick={() => handleBatch(exportComponentAsJPEG)}
         >
           Batch download
         </div>

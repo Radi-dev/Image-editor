@@ -1,41 +1,93 @@
 import { useState, useContext } from "react";
 import * as XLSX from "xlsx";
-import { dummyArray } from "./dummyData";
+
 import { AppContext } from "./contexts";
+import { loadFont } from "./loadFont";
 
 export default function FileUpload() {
   const [row, setRow] = useState(0);
-  const [arrayData, setArrayData] = useState(dummyArray);
-  const { setImage, handleChildren } = useContext(AppContext);
+  const { setImage, handleChildren, arrayData, setArrayData } =
+    useContext(AppContext);
 
-  const imageHandler = (e) => {
+  const checkFileType = (e, filetypeArray) => {
+    var validExts = [...filetypeArray];
+    var fileExt = e.target.value;
+    fileExt = fileExt.substring(fileExt.lastIndexOf("."));
+    if (validExts.indexOf(fileExt) < 0) {
+      console.log(
+        "Invalid file selected, valid files are of " +
+          validExts.toString() +
+          " types."
+      );
+      return false;
+    } else return true;
+  };
+
+  const imageFilesHandler = (e) => {
+    if (
+      checkFileType(e, [
+        ".tif",
+        ".pjp",
+        ".xbm",
+        ".jxl",
+        ".svgz",
+        ".jpg",
+        ".jpeg",
+        ".ico",
+        ".tiff",
+        ".gif",
+        ".svg",
+        ".jfif",
+        ".webp",
+        ".png",
+        ".bmp",
+        ".pjpeg",
+        ".avif",
+      ])
+    ) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (reader.readyState === 2) setImage(reader.result);
+      };
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  };
+
+  const fontFilesHandler = (e) => {
+    console.log("font handler");
     const reader = new FileReader();
     reader.onload = () => {
-      if (reader.readyState === 2) setImage(reader.result);
+      if (reader.readyState === 2) {
+        loadFont(e.target.value, reader.result).catch((err) =>
+          console.log(err)
+        );
+        console.log(e.target.value);
+      }
     };
     reader.readAsDataURL(e.target.files[0]);
   };
-
-  const handleFiles = (e) => {
+  const csvFilesHandler = (e) => {
     e.preventDefault();
 
-    var files = e.target.files,
-      f = files[0];
-    var reader = new FileReader();
-    reader.onload = function (e) {
-      var data = e.target.result;
-      let readedData = XLSX.read(data, { type: "binary" });
-      const wsname = readedData.SheetNames[0];
-      const ws = readedData.Sheets[wsname];
+    if (checkFileType(e, [".xls", ".xlsx", ".csv"])) {
+      var files = e.target.files,
+        f = files[0];
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        var data = e.target.result;
+        let readedData = XLSX.read(data, { type: "binary" });
+        const wsname = readedData.SheetNames[0];
+        const ws = readedData.Sheets[wsname];
 
-      /* Convert array to json*/
-      const dataParse = XLSX.utils.sheet_to_json(ws, { header: 1 });
-      var result = dataParse.filter((e) => e.length);
-      console.log(result);
-      setArrayData(result);
-      console.log(result);
-    };
-    reader.readAsBinaryString(f);
+        /* Convert array to json*/
+        const dataParse = XLSX.utils.sheet_to_json(ws, { header: 1 });
+        var result = dataParse.filter((e) => e.length);
+        console.log(result);
+        setArrayData(result);
+        console.log(result);
+      };
+      reader.readAsBinaryString(f);
+    }
   };
   const previous = (second) => {
     let newRow = row === 0 ? arrayData.length - 1 : row - 1;
@@ -62,15 +114,23 @@ export default function FileUpload() {
           name="image-upload"
           id="input"
           accept="image/*"
-          onChange={imageHandler}
+          onChange={imageFilesHandler}
         />
       </div>
       <input
         type="file"
-        accept=".xls,.xlsx"
-        onChange={handleFiles}
+        accept=".xls, .xlsx, .csv"
+        onChange={csvFilesHandler}
         className=" form-control"
       />
+      <div>
+        <input
+          type="file"
+          name="font-upload"
+          id="inputfont"
+          onChange={fontFilesHandler}
+        />
+      </div>
       {arrayData ? (
         <>
           <div className="flex items-center w-10 m-2">

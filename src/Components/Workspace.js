@@ -11,7 +11,8 @@ const EditBox = ({ child, i }) => {
     <Draggable handle="strong">
       <div
         key={i}
-        className="absolute cursor-default w-min max -w-xs overflow-hidden"
+        style={{ left: `${i * 2}rem` }}
+        className="absolute cursor-default botto m-28 w-min max -w-xs overflow-hidden"
       >
         <strong
           style={guideStyles.printModeAll}
