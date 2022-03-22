@@ -70,7 +70,6 @@ export default function TextStyleToggles({
           {radioButtons.map((radioBtn, i) => (
             <div key={i} className="mb-3 gap-3 flex items-center">
               <div className="inline-flex  items-center ">
-                {console.log("align is: " + align)}
                 {align === radioBtn.name ? (
                   <input
                     type="radio"

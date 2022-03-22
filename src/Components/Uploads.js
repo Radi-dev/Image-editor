@@ -54,14 +54,12 @@ export default function FileUpload() {
   };
 
   const fontFilesHandler = (e) => {
-    console.log("font handler");
     const reader = new FileReader();
     reader.onload = () => {
       if (reader.readyState === 2) {
         loadFont(e.target.value, reader.result).catch((err) =>
           console.log(err)
         );
-        console.log(e.target.value);
       }
     };
     reader.readAsDataURL(e.target.files[0]);
@@ -82,9 +80,7 @@ export default function FileUpload() {
         /* Convert array to json*/
         const dataParse = XLSX.utils.sheet_to_json(ws, { header: 1 });
         var result = dataParse.filter((e) => e.length);
-        console.log(result);
         setArrayData(result);
-        console.log(result);
       };
       reader.readAsBinaryString(f);
     }
@@ -179,7 +175,6 @@ export default function FileUpload() {
             Line {row + 1} of {arrayData.length}
           </p>
           <div className="flex w-full overflow-x-scroll">
-            {console.log("array data row is: " + arrayData[row])}
             {arrayData[row].map((data, i) => (
               <div
                 className="border-gray-400 h-36 rounded-lg m-1 p-1 border-2"

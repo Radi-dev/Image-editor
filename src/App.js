@@ -38,7 +38,6 @@ function App() {
     /*return data;*/
     if (typeof link.download === "string") {
       link.href = data;
-      //console.log(link.href);
       link.download = "image.jpg";
 
       document.body.appendChild(link);
@@ -65,8 +64,6 @@ function App() {
       };
       newArray = [...newArray, newObj];
     }
-    console.log("arrayrr is: ");
-    console.log(newArray);
     setChildrenItems(newArray);
   };
 
@@ -74,8 +71,6 @@ function App() {
     var newStylesObj = { ...newStyles };
     var childrenItms = [...childrenItems];
     newStylesObj[id] = { ...newStylesObj[id], ...style };
-    console.log("style is");
-    console.log(newStylesObj);
     childrenItms[id - 1].style = newStylesObj[id];
     setChildrenItems(childrenItms);
     setNewStyles(newStylesObj);
@@ -127,25 +122,8 @@ function App() {
     arrayData.forEach((e) => {
       setTimeout(() => {
         setChildrenItems(mapChildren(e));
-        console.log("childrnnnn");
-        console.log(childrenItems);
       }, 20);
     });
-    //arrayData.forEach((e) =>
-    //    {
-    //      console.log("e here is");
-    //      console.log(e);
-    //      const ss = [...e];
-    //      // handleSaveAs(callback);
-    //        handleChildren(ss);
-    //        console.log("and children is");
-    //        console.log(childrenItems);
-    //
-    //    });//
-
-    // setTimeout(() => {
-    //   setGuideStyles({});
-    //  }, 500);
   };
 
   return (

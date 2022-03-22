@@ -91,7 +91,6 @@ const Moda = ({ openId }) => {
   };
 
   const handleAlign = (align) => {
-    console.log(align);
     const alignProp = { textAlign: align };
     openId ? modifyTextboxStyles(openId, alignProp) : console.log();
     // setActiveFontFamily(font);
@@ -111,28 +110,24 @@ const Moda = ({ openId }) => {
   useEffect(() => {
     if (styling.fontStyle) {
       const italicProp = styling.fontStyle === "italic" ? "italic" : "normal";
-      console.log(italicProp);
       setItalic(italicProp);
     }
   }, []);
   useEffect(() => {
     if (styling.fontWeight) {
       const boldProp = styling.fontWeight === "bold" ? "bold" : "normal";
-      console.log(boldProp);
       setBold(boldProp);
     }
   }, []);
   useEffect(() => {
     if (styling.color) {
       const colorProp = styling.color;
-      console.log(colorProp);
       setcolorValue(colorProp);
     }
   }, []);
   useEffect(() => {
     if (styling.fontFamily) {
       const fontProp = styling.fontFamily;
-      console.log(fontProp);
 
       setDisplayFontFamily(fontProp);
     }
@@ -141,7 +136,6 @@ const Moda = ({ openId }) => {
   useEffect(() => {
     if (styling.textAlign) {
       const alignProp = styling.textAlign;
-      console.log(alignProp);
       setTextAlign(alignProp);
     }
   });
